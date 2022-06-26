@@ -5,10 +5,11 @@ import {COMMANDS} from './types';
 import {drawCircle} from './draw-figures/draw-circle';
 import {drawRectangle} from './draw-figures/draw-rectangle';
 import {drawSquare} from './draw-figures/draw-square';
+import {printScreen} from './print-screen';
 
 type parsedMessege =  [COMMANDS, string]
 
-export const handlers = (wsClient: WebSocket, messageBuf: RawData) => {
+export const handlers = async (wsClient: WebSocket, messageBuf: RawData) => {
     const message = messageBuf.toString();
     const [command, ...steps] = message.split(' ') as parsedMessege;
 
@@ -39,6 +40,13 @@ export const handlers = (wsClient: WebSocket, messageBuf: RawData) => {
     if (command === 'draw_square') {
         drawSquare(steps);
 
+        return;
+    }
+
+    if (command === 'prnt_scrn') {
+        const result = await printScreen();
+        
+        wsClient.send(`prnt_scrn ${result}`);
         return;
     }
 
