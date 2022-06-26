@@ -6,7 +6,7 @@ export const printScreen = async () => {
     var img = robot.screen.capture(0, 0, size, size).image;
 
     const jimpImg = new jimp({data: img, width: 200, height: 200}, (err, image) => {
-        if (!err) {
+        if (err) {
             return console.log('err')
         }
     });

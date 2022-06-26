@@ -1,4 +1,5 @@
 import robot from 'robotjs'
+import {WebSocket} from 'ws';
 
 interface Coordinates {
     x: number;
@@ -23,9 +24,10 @@ export const COMMAND_COLLECTION = {
     mouse_right: mouseRight
 };
 
-export const moveMouse = (command: COMMANDS, [step]: string[]) => {
+export const moveMouse = (command: COMMANDS, [step]: string[], wsClient: WebSocket) => {
     const calcNewPosition = COMMAND_COLLECTION[command] || mousePosition
     const {x, y} = calcNewPosition(robot.getMousePos(), Number(step));
 
     robot.moveMouseSmooth(x, y);
+    wsClient.send(`${command} with ${step} step`)
 };

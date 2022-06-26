@@ -2,20 +2,18 @@ import robot from 'robotjs';
 import {WebSocket, RawData} from 'ws';
 import {moveMouse} from './handlers';
 import {COMMANDS} from './types';
-import {drawCircle} from './draw-figures/draw-circle';
-import {drawRectangle} from './draw-figures/draw-rectangle';
-import {drawSquare} from './draw-figures/draw-square';
+import {
+    drawCircle,
+    drawRectangle,
+    drawSquare
+} from './draw-figures';
 import {printScreen} from './print-screen';
 
 type parsedMessege =  [COMMANDS, string]
 
 export const handlers = async (wsClient: WebSocket, messageBuf: RawData) => {
     const message = messageBuf.toString();
-    const [command, ...steps] = message.split(' ') as parsedMessege;
-
-    // TODO переименовать steps
-
-    console.log(message)
+    const [command, ...dimensions] = message.split(' ') as parsedMessege;
 
     if (command === 'mouse_position') {
         const {x, y} = robot.getMousePos(); 
@@ -26,19 +24,22 @@ export const handlers = async (wsClient: WebSocket, messageBuf: RawData) => {
     }
 
     if (command === 'draw_circle') {
-        drawCircle(steps);
+        drawCircle(dimensions);
+        wsClient.send('draw_circle')
 
         return;
     }
 
     if (command === 'draw_rectangle') {
-        drawRectangle(steps);
+        drawRectangle(dimensions);
+        wsClient.send('draw_rectangle')
 
         return;
     }
 
     if (command === 'draw_square') {
-        drawSquare(steps);
+        drawSquare(dimensions);
+        wsClient.send('draw_square')
 
         return;
     }
@@ -50,5 +51,5 @@ export const handlers = async (wsClient: WebSocket, messageBuf: RawData) => {
         return;
     }
 
-    return moveMouse(command, steps);
+    return moveMouse(command, dimensions, wsClient);
 }
