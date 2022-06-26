@@ -9,11 +9,11 @@ import {
 } from './draw-figures';
 import {printScreen} from './print-screen';
 
-type parsedMessege =  [COMMANDS, string]
+type ParsedMessege = [COMMANDS, string]
 
 export const handlers = async (wsClient: WebSocket, messageBuf: RawData) => {
     const message = messageBuf.toString();
-    const [command, ...dimensions] = message.split(' ') as parsedMessege;
+    const [command, ...dimensions] = message.split(' ') as [COMMANDS, string]
 
     if (command === 'mouse_position') {
         const {x, y} = robot.getMousePos(); 

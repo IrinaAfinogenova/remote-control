@@ -1,9 +1,9 @@
 import Jimp from 'jimp';
-import {httpServer} from './src/http_server/index';
 import robot from 'robotjs';
 import {Transform} from 'stream';
-import { WebSocketServer, WebSocket, createWebSocketStream } from 'ws';
-import {handlers} from './src/mouse-handlers/index';
+import {WebSocketServer, WebSocket, createWebSocketStream} from 'ws';
+import {httpServer} from './src/http_server';
+import {handlers} from './src/handlers';
 
 const HTTP_PORT = 3000;
 
