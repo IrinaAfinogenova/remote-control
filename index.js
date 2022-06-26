@@ -13,12 +13,11 @@ const wsServer = new WebSocketServer({port: 9000});
 const onConnect = (wsClient) => {
     wsClient.send('connected');
     wsClient.on('message', (message) => {
-        handlers(message)
+        handlers(wsClient, message)
     });
     wsClient.on('close', () => {
         console.log('user is diconected')
     });
 }
-
 
 wsServer.on('connection', onConnect);

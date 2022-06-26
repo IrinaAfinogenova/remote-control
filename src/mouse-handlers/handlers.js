@@ -1,17 +1,19 @@
 import robot from 'robotjs'
 
-const noop = (arg) => arg;
+const mousePosition = robot.getMousePos;
 
+// TODO сделай граничные условия чтобы когда мышка доходит до конца
+// экрана она не перекидывалась на другой конец
 export const COMMAND_COLLECTION = {
-    mouse_up: ({x, y}) => ({x, y: y - 10}),
-    mouse_down: ({x, y}) => ({x, y: y + 10}),
-    mouse_left : ({x, y}) => ({x: x - 10, y}),
-    mouse_right: ({x, y}) => ({x: x + 10, y}) 
+    mouse_up: ({x, y}, step = 10) => ({x, y: y - step}),
+    mouse_down: ({x, y}, step = 10) => ({x, y: y + step}),
+    mouse_left : ({x, y}, step = 10) => ({x: x - step, y}),
+    mouse_right: ({x, y}, step = 10) => ({x: x + step, y})
 };
 
-export const moveMouse = (command) => {
-    const calcNewPosition = COMMAND_COLLECTION[command] || noop;
-    const {x, y} = calcNewPosition(robot.getMousePos());
+export const moveMouse = (command, step) => {
+    const calcNewPosition = COMMAND_COLLECTION[command] || mousePosition;
+    const {x, y} = calcNewPosition(robot.getMousePos(), Number(step));
 
     robot.moveMouseSmooth(x, y);
 };
