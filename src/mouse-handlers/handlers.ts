@@ -23,7 +23,7 @@ export const COMMAND_COLLECTION = {
     mouse_right: mouseRight
 };
 
-export const moveMouse = (command: COMMANDS, step: string) => {
+export const moveMouse = (command: COMMANDS, [step]: string[]) => {
     const calcNewPosition = COMMAND_COLLECTION[command] || mousePosition
     const {x, y} = calcNewPosition(robot.getMousePos(), Number(step));
 
