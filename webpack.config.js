@@ -15,6 +15,9 @@ module.exports = {
       },
     ],
   },
+  externals: {
+    robotjs: 'commonjs robotjs',
+  },
   output: {
     filename: 'main.cjs',
     path: path.resolve(__dirname, 'dist'),
