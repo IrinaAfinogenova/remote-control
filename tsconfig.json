@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+      "baseUrl": "./",
+      "module": "CommonJs",
+      "moduleResolution": "node",
+      "esModuleInterop": true,
+      "target": "ES2017",
+      "sourceMap": true,
+      "outDir": "dist",
+      "allowSyntheticDefaultImports": true
+    },
+    "ts-node": {
+      "esm": true
+  }
+}
