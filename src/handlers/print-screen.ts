@@ -14,5 +14,5 @@ export const printScreen = async () => {
     const buf = await jimpImg.getBufferAsync(jimp.MIME_PNG)
     const result = buf.toString("base64")
 
-    return result;
+    return `prnt_scrn ${result}`;
 }

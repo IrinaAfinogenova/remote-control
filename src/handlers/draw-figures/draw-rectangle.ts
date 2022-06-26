@@ -1,6 +1,6 @@
 import robot from 'robotjs';
 
-export const drawRectangle = async ([width, length]: string[]) => {
+export const drawRectangle = ([width, length]: string[]) => {
     const {x, y} = robot.getMousePos();
     const xX = Number(width)
     const yY = Number(length)

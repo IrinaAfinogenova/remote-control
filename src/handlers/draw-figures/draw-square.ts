@@ -1,6 +1,6 @@
 import robot from 'robotjs';
 
-export const drawSquare = async ([width]: string[]) => {
+export const drawSquare = ([width]: string[]) => {
     const {x, y} = robot.getMousePos();
     const xX = Number(width)
 
